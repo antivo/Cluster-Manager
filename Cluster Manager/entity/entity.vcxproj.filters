@@ -21,12 +21,18 @@
     <ClInclude Include="entity_job_type.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="entity_raw_contract.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="entity_contract.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="entity_job_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entity_raw_contract.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

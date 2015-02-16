@@ -1,20 +1,20 @@
 #include "server_detailed_server.h"
 
-#include "common_assert.h"
+#include "assert_common.h"
 #include "configuration_shared_client_server.h"
 #include "configuration_shared_server_manager.h"
-#include "configuration_constants.h"
 #include "entity_contract.h"
 #include "entity_client_record.h"
 #include "filesystem_job_directory.h"
 #include "persistent_server_data.h"
+#include "server_instructed_server.h"
 #include "utility_serialization.h"
 #include "utility_string.h"
-#include "server_instructed_server.h"
 
 namespace server {
-	
 	namespace {
+		constexpr auto EMPTY_FILE = "(*EMPTY_FILE*)";
+
 		constexpr auto USERNAME_PROPERTY = "username";
 		constexpr auto CLIENTID_PROPERTY = "clientId";
 		constexpr auto TO_SEND_PROPERY = "contractVector";
@@ -33,13 +33,12 @@ namespace server {
 		constexpr auto SEND_FILES_STATE = "sendFiles";
 	}
 
-	DetailedServer::DetailedServer(unsigned short listenerPort,
-																	 std::shared_ptr<configuration::SharedClientServer> clientServerConf,
-																	 std::shared_ptr<configuration::SharedServerManager> serverManagerConf) :
+	DetailedServer::DetailedServer(std::shared_ptr<configuration::SharedClientServer> clientServerConf,
+																 std::shared_ptr<configuration::SharedServerManager> serverManagerConf) :
 		clientServerConf(clientServerConf),
 		serverManagerConf(serverManagerConf),
 		transitionMap(nullptr), 
-		instructedServer(std::make_unique<server::InstructedServer>(listenerPort)),
+		instructedServer(std::make_unique<server::InstructedServer>(clientServerConf->getPort())),
 		persistentData(nullptr)
 	{}
 
@@ -82,45 +81,42 @@ namespace server {
 
   std::string DetailedServer::idle(entity::ClientRecord& data, const std::string& message) const {
 		assert::stringNotEmpty(message, "Client sended empty message");
-    if (!message.compare(configuration::CLIENT_CHOICE_RECEIVING)) {
+		if (!message.compare(clientServerConf->getClientChoiceSchedule())) {
       data.setState(RECEIVING_STATE);
-    } else if (!message.compare(configuration::CLIENT_CHOICE_SENDING)) {
+    } else if (!message.compare(clientServerConf->getClientChoiceObtain())) {
       data.setState(SENDING_STATE);
-    } else if (!message.compare(configuration::CLIENT_CHOICE_INFO)) {
+    } else if (!message.compare(clientServerConf->getClientChoiceInfo())) {
       const auto clientId = data.getProperty(CLIENTID_PROPERTY);
       return persistentData->getInfo(clientId);
     } else {
-      throw std::runtime_error("Client demanded unsupported action");
+			assert::runtime(false, "Client demanded unsupported action");
     }
     return clientServerConf->getSucessMessage();
   }
 
   std::string DetailedServer::receiving(entity::ClientRecord& data, const std::string& message) const {
 		assert::stringNotEmpty(message, "Client sended empty message");
-		const auto contractVector = utility::deserialize(message);
-		auto contract = std::make_shared<entity::Contract>(contractVector);
+		auto contractVector = utility::deserialize(message);
+		auto contract = std::make_shared<entity::Contract>(std::move(contractVector));
 		const auto clientID = data.getProperty(CLIENTID_PROPERTY);
-    const auto jobName = contract->getJobName();
-    if(!persistentData->jobExists(clientID, jobName)) {
-			data.setContract(contract);
-			data.setProperty(POINTER_PROPERTY, POINTER_INIT);
-			data.setState(RECV_FILES_STATE);
-			return clientServerConf->getSucessMessage();
-		} else {
-			return clientServerConf->getErrorMessage();
-		}
+		const auto jobName = contract->getJobName();
+		assert::runtime(!persistentData->jobExists(clientID, jobName), "Client trying to schedule job with existing name");
+		data.setContract(contract);
+		data.setProperty(POINTER_PROPERTY, POINTER_INIT);
+		data.setState(RECV_FILES_STATE);
+		return clientServerConf->getSucessMessage();
   }
 
   std::string DetailedServer::recvFiles(entity::ClientRecord& data, const std::string& message) const {
-    const auto clientId = data.getProperty(CLIENTID_PROPERTY);
+		const auto clientId = data.getProperty(CLIENTID_PROPERTY);
 		const auto contract = data.getContract();
 		const auto jobName = contract->getJobName();
 		auto pathListPointer = std::stoi(data.getProperty(POINTER_PROPERTY));
 		const auto filePath = contract->getPathList().at(pathListPointer);
-    const auto jobDirectory = std::make_unique<filesystem::JobDirectory>(serverManagerConf->getRootPath(), clientId, jobName);
+		const auto jobDirectory = std::make_unique<filesystem::JobDirectory>(serverManagerConf->getRootPath(), clientId, jobName);
 		try {
 			jobDirectory->prepareForDataIncome(serverManagerConf->getDataDirectoryName());
-      jobDirectory->storeData(filePath, message);
+			jobDirectory->storeData(filePath, message);
 			++pathListPointer;
 			if(pathListPointer == data.getContract()->getPathList().size()) {
 				data.setContract(nullptr);
@@ -137,23 +133,19 @@ namespace server {
 		return clientServerConf->getSucessMessage();
   }
 
-	/// receives job name
-	/// sends string vector (vector of strings)
   std::string DetailedServer::sending(entity::ClientRecord& data, const std::string& message) const {
 		assert::stringNotEmpty(message, "Client sended empty message");
 		const auto clientId = data.getProperty(CLIENTID_PROPERTY);
     const auto& jobName = message;
-    if(persistentData->jobFinished(clientId, jobName)) {
-			data.setProperty(JOB_NAME_PROPERTY, jobName);
-			const auto jobDirectory = std::make_unique<filesystem::JobDirectory>(serverManagerConf->getRootPath(), clientId, jobName);
-			const auto topology = std::make_shared<std::vector<std::string>>(jobDirectory->getResultTopology());
-			data.setResultTopology(topology);
-			data.setProperty(POINTER_PROPERTY, POINTER_INIT);
-			data.setState(SEND_FILES_STATE);
-			return utility::serialise(*topology);
-		} else {
-			return clientServerConf->getErrorMessage();
-		}
+		assert::runtime(persistentData->jobFinished(clientId, jobName), "Client requested to retrieve job that is not finished");
+		data.setProperty(JOB_NAME_PROPERTY, jobName);
+		const auto jobDirectory = std::make_unique<filesystem::JobDirectory>(serverManagerConf->getRootPath(), clientId, jobName);
+		jobDirectory->prepareForResultIncome(serverManagerConf->getResultDirectoryName());
+		const auto topology = std::make_shared<std::vector<std::string>>(jobDirectory->getResultTopology());
+		data.setResultTopology(topology);
+		data.setProperty(POINTER_PROPERTY, POINTER_INIT);
+		data.setState(SEND_FILES_STATE);
+		return utility::serialise(jobDirectory->getRelativeResultTopology());
   }
 
   std::string DetailedServer::sendFiles(entity::ClientRecord& data, const std::string& message) const {
@@ -171,6 +163,12 @@ namespace server {
 			filesystem::JobDirectory jobDirectory(serverManagerConf->getRootPath(), clientId, jobName);
 			jobDirectory.remove();
 			data.setState(IDLE_STATE);
+		} else {
+			data.setProperty(POINTER_PROPERTY, std::to_string(pathListPointer));
+		}
+
+		if (!content.size()) {
+			content = EMPTY_FILE;
 		}
 		return content;
   }

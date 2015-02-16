@@ -44,7 +44,8 @@
     <LibraryPath>D:\Workspace\Visual C++\Cluster Manager\database\_dependencies\mysql\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\assert;C:\Users\StjepanAntivo\Desktop\Cluster Manager\client_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\configuration;C:\Users\StjepanAntivo\Desktop\Cluster Manager\console;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\exception;C:\Users\StjepanAntivo\Desktop\Cluster Manager\filesystem;C:\Users\StjepanAntivo\Desktop\Cluster Manager\locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_manager;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\memory;C:\Users\StjepanAntivo\Desktop\Cluster Manager\network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\process;C:\Users\StjepanAntivo\Desktop\Cluster Manager\serialization;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_logic;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_server;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;C:\Users\StjepanAntivo\Desktop\Cluster Manager\thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\utility;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\assert;C:\Users\StjepanAntivo\Desktop\Cluster Manager\client_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\configuration;C:\Users\StjepanAntivo\Desktop\Cluster Manager\console;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\exception;C:\Users\StjepanAntivo\Desktop\Cluster Manager\filesystem;C:\Users\StjepanAntivo\Desktop\Cluster Manager\locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_manager;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\memory;C:\Users\StjepanAntivo\Desktop\Cluster Manager\network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\process;C:\Users\StjepanAntivo\Desktop\Cluster Manager\serialization;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_logic;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_server;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;C:\Users\StjepanAntivo\Desktop\Cluster Manager\thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\utility;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database\_dependencies\mysql\include;$(IncludePath);C:\Users\StjepanAntivo\Desktop\Cluster Manager\_dependencies\mysql\include;C:\Users\StjepanAntivo\Desktop\Cluster Manager</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -91,11 +92,6 @@
   <ItemGroup>
     <ClInclude Include="database_mysql_real_connection.h" />
     <ClInclude Include="database_mysql_store_result.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\memory\memory.vcxproj">
-      <Project>{3b86a87d-1453-41c7-9d4f-21f36d789e50}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

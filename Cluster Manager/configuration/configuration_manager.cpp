@@ -1,25 +1,27 @@
 #include "configuration_manager.h"
 
-#include "configuration_master_node.h"
+#include "assert_common.h"
+#include "configuration_default.h"
 
 namespace configuration {
 	std::shared_ptr<configuration::Manager> Manager::makeDefault() {
 		return std::make_shared<configuration::Manager>(
-			configuration::mpiexecPath,
-			configuration::detachedExecutorPath,
-			configuration::attachedInspectorPath,
-			configuration::resultFilePath);
+			configuration::MPIEXEC_PATH,
+			configuration::DETACHED_EXECUTOR_PATH,
+			configuration::ATTACHED_INSPECTOR_PATH);
 	}
 
 	Manager::Manager(const std::string& mpiexecPath,
 		const std::string& detachedExecutorPath, 
-		const std::string& attachedInspectorPath,
-		const std::string& resultFilePath) :
+		const std::string& attachedInspectorPath) :
 			mpiexecPath(mpiexecPath),
 			detachedExecutorPath(detachedExecutorPath),
-			attachedInspectorPath(attachedInspectorPath),
-			resultFilePath(resultFilePath)
-	{}
+			attachedInspectorPath(attachedInspectorPath)
+	{
+		assert::stringNotEmpty(mpiexecPath, "SharedClientServer mpiexec path must not be empty");
+		assert::stringNotEmpty(detachedExecutorPath, "SharedClientServer detached executor path must not be empty");
+		assert::stringNotEmpty(attachedInspectorPath, "SharedClientServer attached inspector path must not be empty");
+	}
 
 	Manager::~Manager() {}
 
@@ -35,22 +37,18 @@ namespace configuration {
 		return attachedInspectorPath;
 	}
 
-	std::string Manager::getResultFilePath() const {
-		return resultFilePath;
-	}
-
 	void Manager::setMpiexecPath(const std::string & mpiexecPath) {
+		assert::stringNotEmpty(mpiexecPath, "SharedClientServer mpiexec path must not be empty");
 		this->mpiexecPath = mpiexecPath;
 	}
 
 	void Manager::setDetachedExecutorPath(const std::string & detachedExecutorPath) {
+		assert::stringNotEmpty(detachedExecutorPath, "SharedClientServer detached executor path must not be empty");
 		this->detachedExecutorPath = detachedExecutorPath;
 	}
 
 	void Manager::setAttachedInspector(const std::string & attachedInspectorPath) {
+		assert::stringNotEmpty(attachedInspectorPath, "SharedClientServer attached inspector path must not be empty");
 		this->attachedInspectorPath = attachedInspectorPath;
-	}
-	void Manager::setResultFilePath(const std::string & resultFilePath) {
-		this->resultFilePath = resultFilePath;
 	}
 }

@@ -2,9 +2,6 @@
 
 #include <windows.h>
 
-#include <memory>
-#include <array>
-
 #include "memory_common.h"
 
 namespace exception {
@@ -51,7 +48,7 @@ namespace exception {
     if(nullptr != message) { 
       return message->c_str();
     } else { 
-      return "Unable to clarify source of networking problem.\n";
+      return "Unable to clarify source of problem.\n";
     } 
   }
 

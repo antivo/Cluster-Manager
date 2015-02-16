@@ -7,8 +7,8 @@
 namespace filesystem {
   namespace file {
     void create(const std::string&path, const std::string& content) {
-      std::ofstream outfile(path);
-      outfile.write(content.c_str(), content.size());
+      std::ofstream outfile(path, std::ofstream::out);
+      if(content.size()) outfile.write(content.c_str(), content.size());
     }
 
 		void copy(const std::string& src, const std::string& dst) {

@@ -23,8 +23,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "console", "console\console.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "database", "database\database.vcxproj", "{EFE8D473-F946-401A-BE15-4E52801F4922}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{1F9E8360-1F8D-48E9-A416-FC8687656161}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "server_server", "server_server\server_server.vcxproj", "{74AC6CE4-CD8F-4ADF-A674-BCAA2EBFC17E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filesystem", "filesystem\filesystem.vcxproj", "{517EC5B0-9B09-46F3-99E3-668B009D1045}"
@@ -101,10 +99,6 @@ Global
 		{EFE8D473-F946-401A-BE15-4E52801F4922}.Debug|Win32.Build.0 = Debug|Win32
 		{EFE8D473-F946-401A-BE15-4E52801F4922}.Release|Win32.ActiveCfg = Release|Win32
 		{EFE8D473-F946-401A-BE15-4E52801F4922}.Release|Win32.Build.0 = Release|Win32
-		{1F9E8360-1F8D-48E9-A416-FC8687656161}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1F9E8360-1F8D-48E9-A416-FC8687656161}.Debug|Win32.Build.0 = Debug|Win32
-		{1F9E8360-1F8D-48E9-A416-FC8687656161}.Release|Win32.ActiveCfg = Release|Win32
-		{1F9E8360-1F8D-48E9-A416-FC8687656161}.Release|Win32.Build.0 = Release|Win32
 		{74AC6CE4-CD8F-4ADF-A674-BCAA2EBFC17E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{74AC6CE4-CD8F-4ADF-A674-BCAA2EBFC17E}.Debug|Win32.Build.0 = Debug|Win32
 		{74AC6CE4-CD8F-4ADF-A674-BCAA2EBFC17E}.Release|Win32.ActiveCfg = Release|Win32

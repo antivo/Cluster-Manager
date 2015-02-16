@@ -22,9 +22,10 @@ namespace filesystem {
 		void fetchResult(Directory& src) const;
 		void remove();
 
-		std::string getResultFilePath(const int uuid) const;
+		std::string getResultFilePath(const int W) const;
 
 		std::vector<std::string> getResultTopology() const;
+		std::vector<std::string> getRelativeResultTopology() const;
 
 	private:
 		static const std::string deployedDirectory;

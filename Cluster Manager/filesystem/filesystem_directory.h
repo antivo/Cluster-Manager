@@ -9,6 +9,8 @@ namespace filesystem {
 	class Directory {
 	public:
 		Directory(const std::string path);
+		Directory(const Directory& other);
+		Directory& operator=(const Directory& other);
 		~Directory();
 
 		Directory makeSubdirectory(const std::string& name) const;

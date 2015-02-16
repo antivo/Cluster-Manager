@@ -15,33 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="entity_worker_queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="entity_worker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="entity_executed_job.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="entity_job_information.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="entity_executed_job_queue.h">
+    <ClInclude Include="entity_prepared_job.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="entity_worker_queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="entity_executed_job.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="entity_executed_job_queue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="entity_job_information.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="entity_worker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entity_prepared_job.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="entity_worker_queue.cpp">

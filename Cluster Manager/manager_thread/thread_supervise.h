@@ -7,14 +7,10 @@
 #include <thread>
 
 #include "entity_worker_queue.h"
-#include "entity_executed_job_queue.h"
+#include "thread_executed_job_queue.h"
 
 namespace configuration {
 	class SharedServerManager;
-}
-
-namespace entity {
-	class ExecutedJob;
 }
 
 namespace persistent {
@@ -26,28 +22,29 @@ namespace utility {
 }
 
 namespace thread {
+	class ExecutedJob;
 	class Supervise {
 	public:
 		Supervise(std::unique_ptr<utility::PeriodicSleeper>&& periodicSleeper,
 							const std::shared_ptr<configuration::SharedServerManager>& sharedData,
 							const std::shared_ptr<persistent::ManagerData>& persistentData,
-							const std::shared_ptr<locked::WorkerQueue>& workers);
+							const std::shared_ptr<entity::WorkerQueue>& workers);
 		~Supervise();
 		
 		bool isRunning() const;
-		void insertExecutedJob(std::unique_ptr<entity::ExecutedJob>&& executedJob);
+		void insertExecutedJob(std::unique_ptr<thread::ExecutedJob>&& executedJob);
 
 	private:
-		std::unique_ptr<locked::ExecutedJobQueue> executedJobs;
+		std::unique_ptr<thread::ExecutedJobQueue> executedJobs;
 		std::unique_ptr<utility::PeriodicSleeper> periodicSleeper;
 		std::shared_ptr<configuration::SharedServerManager> sharedData;
 		std::shared_ptr<persistent::ManagerData> persistentData;
-		std::shared_ptr<locked::WorkerQueue> workers;
+		std::shared_ptr<entity::WorkerQueue> workers;
 		std::atomic<bool> running;
 		std::thread task;
 
 		void supervise() const;
-		void finishJobCycle(std::unique_ptr<entity::ExecutedJob> executedJob) const;
+		void finishJobCycle(std::unique_ptr<thread::ExecutedJob> executedJob) const;
 
 		Supervise(const Supervise&) = delete;
 		Supervise& operator=(const Supervise&) = delete;

@@ -3,10 +3,10 @@
 
 #include <windows.h>
 
-#include <memory>
 #include <functional>
+#include <memory>
 
-#include "_dependencies\mysql\include\mysql.h"
+#include "_dependencies/mysql/include/mysql.h"
 
 namespace database {
   class MySQLStoreResult;
@@ -25,9 +25,9 @@ namespace database {
 
     ///for queries that retrieve data (select)
     /// <exception cref="std::runtime_error">Thrown when fails to execute statement.</exception>
-    std::unique_ptr<MySQLStoreResult> retrieve(const char* statement) const; // _NOEXCEPT
+    std::unique_ptr<MySQLStoreResult> select(const char* statement) const;
  
-		std::string select(const std::string& statement, const std::function<std::string(void)>& generateExceptionReport) const;
+		std::string selectUnit(const std::string& statement, const std::function<std::string(void)>& generateExceptionReport) const;
 
 	private:
     std::unique_ptr<st_mysql, void(*)(st_mysql*)> connection; 

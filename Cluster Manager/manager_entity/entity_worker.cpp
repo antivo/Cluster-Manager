@@ -19,7 +19,7 @@ namespace entity {
 		return workingDirectory;
 	}
 
-	void Worker::setWorkingDirectory(std::shared_ptr<filesystem::Directory> workingDir) {
+	void Worker::setWorkingDirectory(const std::shared_ptr<filesystem::Directory>& workingDir) {
 		this->workingDirectory = workingDir;
 	}
 

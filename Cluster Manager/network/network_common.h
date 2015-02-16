@@ -1,10 +1,11 @@
 #ifndef NETWORK_COMMON
 #define NETWORK_COMMON
 
+#include <winsock2.h>
+
 #include <istream>
 #include <string>
 #include <memory>
-#include <winsock2.h>
 
 /// To be used for determining message size or message chunk values
 typedef std::size_t message_size;

@@ -19,6 +19,8 @@ namespace persistent {
 
 	private:
 		std::unique_ptr<const database::MySQLRealConnection> conn;
+
+		void markAsLoaded(const std::string& jobId) const;
 	};
 }
 

@@ -1,13 +1,10 @@
 #include "entity_contract.h"
 
-#include <numeric>
+#include <algorithm>
 #include <string>
 #include <vector>
-#include <locale>
-#include <cstring>
-#include <algorithm>
 
-#include "common_assert.h"
+#include "assert_common.h"
 #include "filesystem_common.h"
 #include "entity_job_type.h"
 #include "utility_string.h"
@@ -55,29 +52,28 @@ namespace entity {
 	}
 
 	void Contract::assertContract() { 
-		assert::condition(contractVector.size() > ContractVectorField::PathListStart, 
-			"Contract Vector must contain at least " + std::to_string(ContractVectorField::PathListStart) + " elements");
+		assert::runtime(contractVector.size() > ContractVectorField::PathListStart, 
+			"Contract Vector must contain at least " + std::to_string(ContractVectorField::PathListStart) + " elements. it has only " + std::to_string(contractVector.size()));
 		
 		const auto& jobName = contractVector[ContractVectorField::JobName]; 
-		assert::condition(filesystem::isDirectory(jobName), 
+		assert::runtime(filesystem::isDirectory(jobName), 
 			"Invalid Contract. Job name is not a valid job name. Job name provided " + jobName);
 
 		const auto& jobType = contractVector[ContractVectorField::JobType];
 		entity::createJobType(jobType);
 
 		const auto& neededWorkers = contractVector[ContractVectorField::NeededWorkers];
-		assert::condition(utility::isNonZeroNonNegativeInt(neededWorkers),
+		assert::runtime(utility::isNonZeroNonNegativeInt(neededWorkers),
 			"Invalid Contract. Needed workers must be positive. Assigned number for needed workers was " + neededWorkers);
 		
 		const auto& executable = contractVector[ContractVectorField::Executable];
-		assert::condition(isExecutable(executable),
+		assert::runtime(isExecutable(executable),
 			"Invalid Contract. Job exectuion point extension is not supported. Assigned execution point was " + executable);
 
 		const auto found = 
-			std::find_if_not(contractVector.begin() + ContractVectorField::PathListStart, contractVector.end(),
+			std::find_if_not(std::next(contractVector.begin(), ContractVectorField::PathListStart), contractVector.end(),
 			[](const std::string& path) { return filesystem::isFilePath(path); });
-		assert::condition(contractVector.end() != found,
-			"Invalid Contract. Path list must containt valid paths. Invalid assigned path is " + *found);
+		assert::condition(contractVector.end() == found, [&]() {return std::runtime_error("Invalid Contract. Path list must containt valid paths. Invalid assigned path is " + *found); });
 	}
 
 }

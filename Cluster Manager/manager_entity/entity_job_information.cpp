@@ -1,13 +1,13 @@
 #include "entity_job_information.h"
 
-#include "common_assert.h"
+#include "assert_common.h"
 
 namespace entity {
-	JobInformation::JobInformation(const std::vector<std::string> jobInformationVector) : jobInformationVector(jobInformationVector) {
-		assert::condition(jobInformationVector.size() == JobInformationVectorField::SIZE, "Invalid size for job information vector");
+	JobInformation::JobInformation(const std::vector<std::string>& jobInformationVector) : jobInformationVector(jobInformationVector) {
+		assert::runtime(jobInformationVector.size() == JobInformationVectorField::SIZE, "Invalid size for job information vector");
 	}
 	JobInformation::JobInformation(std::vector<std::string>&& jobInformationVector) : jobInformationVector(jobInformationVector) {
-		assert::condition(jobInformationVector.size() == JobInformationVectorField::SIZE, "Invalid size for job information vector");
+		assert::runtime(jobInformationVector.size() == JobInformationVectorField::SIZE, "Invalid size for job information vector");
 	}
 
 	JobInformation::~JobInformation() {}
@@ -43,17 +43,16 @@ namespace entity {
 	void JobInformation::substractNeededWorkers(const int workers) {
 		auto neededWorkers = std::stoi(jobInformationVector[JobInformationVectorField::NeededWorkers]);
 		neededWorkers -= workers;
-		assert::condition(workers >= 0, "Workers for job must always be larger than zero");
+		assert::runtime(workers >= 0, "Workers for job must always be larger than zero");
 		this->jobInformationVector[JobInformationVectorField::NeededWorkers] = std::to_string(neededWorkers);
 	}
-
+	
 	int JobInformation::sizeOfNextWorkerGroup() const {
 		const auto jobType = getJobType();
 		switch (jobType) {
-		case JobType::SERIAL: getNeededWorkers() > 0 ? 1 : 0;
-		case JobType::PARALLEL: getNeededWorkers();
-		default: throw std::runtime_error("JobInformation::sizeOfNextWorkerGroup unsupported job type");
+		case JobType::SERIAL: return getNeededWorkers() > 0 ? 1 : 0;
+		case JobType::PARALLEL: return getNeededWorkers();
+		default: assert::runtime(false, "JobInformation::sizeOfNextWorkerGroup unsupported job type");
 		}
 	}
-
 }

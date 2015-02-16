@@ -19,11 +19,11 @@ namespace persistent {
 		virtual std::string getClientID(const std::string& username, const std::string& password) const;
 		virtual std::string getInfo(const std::string& clientId) const;
 
-		virtual bool jobExists(const std::string& id, const std::string& job) const;
-		virtual bool jobFinished(const std::string& id, const std::string& job) const;
+		virtual bool jobExists(const std::string& clientId, const std::string& jobName) const;
+		virtual bool jobFinished(const std::string& clientId, const std::string& jobName) const;
 
-		virtual void storeJob(const std::string& id, const std::string& jobName, const std::string& jobType, const std::string& neededWorkers, const std::string& args, const std::string& executable) const;
-		virtual void removeJob(const std::string& id, const std::string& job) const;
+		virtual void storeJob(const std::string& clientId, const std::string& jobName, const std::string& jobType, const std::string& neededWorkers, const std::string& args, const std::string& executable) const;
+		virtual void removeJob(const std::string& clientId, const std::string& jobName) const;
 	
 	private:
 		std::unique_ptr<const database::MySQLRealConnection> conn;

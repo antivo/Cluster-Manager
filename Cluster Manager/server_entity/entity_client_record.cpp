@@ -21,8 +21,16 @@ namespace entity {
 		return this->contract;
 	}
 
-	void ClientRecord::setContract(const std::shared_ptr<entity::Contract>& sharedContract) {
+	void ClientRecord::setContract(const std::shared_ptr<entity::Contract>& contract) {
 		this->contract = contract;
+	}
+
+	std::shared_ptr<std::vector<std::string>> ClientRecord::getResultTopology() {
+		return resultTopology;
+	}
+
+	void ClientRecord::setResultTopology(const std::shared_ptr<std::vector<std::string>>& resultTopology) {
+		this->resultTopology = resultTopology;
 	}
 
 	std::string ClientRecord::getProperty(const std::string& propertyName) const {

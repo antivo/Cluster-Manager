@@ -4,8 +4,8 @@
 #include <ws2tcpip.h>
 
 #include <atomic>
-#include <thread>
 #include <memory>
+#include <thread>
 
 namespace network {
   class Listener;

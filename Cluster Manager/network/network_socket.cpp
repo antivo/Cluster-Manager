@@ -3,6 +3,7 @@
 
 #include <winsock2.h>
 
+#include "assert_common.h"
 #include "exception_network.h"
 
 #pragma comment(lib, "ws2_32.lib")
@@ -12,9 +13,7 @@ namespace network {
     device{ std::make_unique<Device>() }, 
     descriptor{ ::socket(adressFamily, type, protocol) } 
   {
-    if (INVALID_SOCKET == descriptor) {
-      throw exception::make_network_exception();
-    }
+    assert::condition(INVALID_SOCKET != descriptor, exception::make_network_exception);
   }
 
   Socket::~Socket() {

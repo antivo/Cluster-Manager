@@ -5,9 +5,11 @@
 #include <vector>
 
 namespace utility {
+	void trim(std::string& ss);
+
   std::string concatenateWithStartingDelimiter(const std::vector<std::string>& lines, const char delimiter);
 
-	//std::string addSlashes(const std::string& xs);
+	std::string duplicateSlashesIn(const std::string& xs);
 
   /// returns std::string::npos if there is no n-th occurrence
   std::size_t findNthOccurrence(const std::string& input, const char delimiter, const std::size_t& occurrence);
@@ -17,7 +19,8 @@ namespace utility {
 
   bool isNonZeroNonNegativeInt(const std::string& str);
 
-	std::string fileToString(std::string& filepath);
+	std::vector<std::string> fileToStringVector(const std::string& path);
+	std::string fileToString(const std::string& filepath);
 }
 
 #endif

@@ -4,7 +4,7 @@
 #include "locked_queue.h"
 #include "entity_worker.h"
 
-namespace locked {
+namespace entity {
 	using WorkerQueue = locked::Queue<entity::Worker>;
 }
 #endif

@@ -15,19 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\server_server\persistent_data.cpp">
+    <ClInclude Include="persistent_server_database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="persistent_server_data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="persistent_server_data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="persistent_server_database.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\server_server\persistent_server_data.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="persistent_server_database.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

@@ -40,7 +40,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\assert;C:\Users\StjepanAntivo\Desktop\Cluster Manager\client_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\configuration;C:\Users\StjepanAntivo\Desktop\Cluster Manager\console;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\exception;C:\Users\StjepanAntivo\Desktop\Cluster Manager\filesystem;C:\Users\StjepanAntivo\Desktop\Cluster Manager\locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_manager;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\memory;C:\Users\StjepanAntivo\Desktop\Cluster Manager\network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\process;C:\Users\StjepanAntivo\Desktop\Cluster Manager\serialization;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_logic;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_server;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;C:\Users\StjepanAntivo\Desktop\Cluster Manager\thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\utility;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\assert;C:\Users\StjepanAntivo\Desktop\Cluster Manager\client_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\configuration;C:\Users\StjepanAntivo\Desktop\Cluster Manager\console;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\exception;C:\Users\StjepanAntivo\Desktop\Cluster Manager\filesystem;C:\Users\StjepanAntivo\Desktop\Cluster Manager\locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_manager;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\memory;C:\Users\StjepanAntivo\Desktop\Cluster Manager\network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\process;C:\Users\StjepanAntivo\Desktop\Cluster Manager\serialization;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_logic;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_server;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;C:\Users\StjepanAntivo\Desktop\Cluster Manager\thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\utility;$(IncludePath);C:\Users\StjepanAntivo\Desktop\Cluster Manager\_dependencies\mysql\include;C:\Users\StjepanAntivo\Desktop\Cluster Manager</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -80,20 +80,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="configuration_clock.h" />
+    <ClInclude Include="configuration_client.h" />
+    <ClInclude Include="configuration_default.h" />
     <ClInclude Include="configuration_manager.h" />
-    <ClInclude Include="configuration_master_node.h" />
-    <ClInclude Include="configuration_messages.h" />
     <ClInclude Include="configuration_shared_server_manager.h" />
-    <ClInclude Include="configuration_console.h" />
-    <ClInclude Include="configuration_constants.h" />
-    <ClInclude Include="configuration_database.h" />
-    <ClInclude Include="configuration_filesystem.h" />
-    <ClInclude Include="configuration_network.h" />
     <ClInclude Include="configuration_shared_client_server.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="configuration.cpp" />
+    <ClCompile Include="configuration_default.cpp" />
+    <ClCompile Include="configuration_client.cpp" />
     <ClCompile Include="configuration_manager.cpp" />
     <ClCompile Include="configuration_shared_client_server.cpp" />
     <ClCompile Include="configuration_shared_server_manager.cpp" />

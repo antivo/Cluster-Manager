@@ -2,8 +2,8 @@
 
 #include <windows.h>
 
-#include "filesystem_directory_common.h"
 #include "filesystem_common.h"
+#include "filesystem_directory_common.h"
 #include "filesystem_file_common.h"
 
 namespace filesystem {
@@ -11,6 +11,15 @@ namespace filesystem {
 		if (!directory::exists(path)) {
 			directory::create(path);
 		}
+	}
+
+	Directory::Directory(const Directory& other) {
+		this->path = other.path;
+	}
+
+	Directory& Directory::operator=(const Directory& other) {
+		this->path = other.path;
+		return *this;
 	}
 
 	Directory::~Directory() {}
@@ -58,7 +67,6 @@ namespace filesystem {
 		if (!directory::exists(directory)) {
 			directory::create(directory);
 		}
-		
 		const auto filePath = filesystem::addToPath(directory, filename);
 		filesystem::file::create(filePath, content);
 	}
@@ -74,6 +82,4 @@ namespace filesystem {
 	std::vector<std::string> Directory::createTopology() const {
 		return filesystem::directory::getTopology(path);
 	}
-
-
 }

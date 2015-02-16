@@ -10,6 +10,14 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="persistent_server_data.h" />
+    <ClInclude Include="persistent_server_database.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="persistent_server_data.cpp" />
+    <ClCompile Include="persistent_server_database.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7F718DCA-61CE-4D22-93AC-00E8996C0625}</ProjectGuid>
     <RootNamespace>server_persistent</RootNamespace>
@@ -39,7 +47,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\assert;C:\Users\StjepanAntivo\Desktop\Cluster Manager\client_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\configuration;C:\Users\StjepanAntivo\Desktop\Cluster Manager\console;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\exception;C:\Users\StjepanAntivo\Desktop\Cluster Manager\filesystem;C:\Users\StjepanAntivo\Desktop\Cluster Manager\locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_manager;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\memory;C:\Users\StjepanAntivo\Desktop\Cluster Manager\network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\process;C:\Users\StjepanAntivo\Desktop\Cluster Manager\serialization;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_logic;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_server;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;C:\Users\StjepanAntivo\Desktop\Cluster Manager\thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\utility;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\assert;C:\Users\StjepanAntivo\Desktop\Cluster Manager\client_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\configuration;C:\Users\StjepanAntivo\Desktop\Cluster Manager\console;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\exception;C:\Users\StjepanAntivo\Desktop\Cluster Manager\filesystem;C:\Users\StjepanAntivo\Desktop\Cluster Manager\locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_manager;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\memory;C:\Users\StjepanAntivo\Desktop\Cluster Manager\network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\process;C:\Users\StjepanAntivo\Desktop\Cluster Manager\serialization;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_logic;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_server;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;C:\Users\StjepanAntivo\Desktop\Cluster Manager\thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\utility;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database\_dependencies\mysql\include;$(IncludePath);C:\Users\StjepanAntivo\Desktop\Cluster Manager\_dependencies\mysql\include;C:\Users\StjepanAntivo\Desktop\Cluster Manager</IncludePath>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -66,14 +74,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\server_server\persistent_server_data.h" />
-    <ClInclude Include="persistent_server_database.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\server_server\persistent_data.cpp" />
-    <ClCompile Include="persistent_server_database.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

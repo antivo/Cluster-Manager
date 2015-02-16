@@ -2,6 +2,7 @@
 
 #include <winsock2.h>
 
+#include "assert_common.h"
 #include "exception_network.h"
 #include "memory_common.h"
 
@@ -12,9 +13,7 @@ namespace network {
 		message_size sentData { 0 };
     do {
       int status = ::send(socket, message + sentData, messageSize - sentData, 0);
-      if(SOCKET_ERROR == status) {
-        throw exception::make_network_exception();
-      } 
+			assert::condition(SOCKET_ERROR != status, exception::make_network_exception);
       sentData += status;
     } while (sentData < messageSize);
   }
@@ -23,9 +22,7 @@ namespace network {
 		message_size recievedData{ 0 };
     do {
       auto status = ::recv(socket, destination + recievedData, messageSize - recievedData, 0);
-      if(SOCKET_ERROR == status || 0 == status) {
-        throw exception::make_network_exception();
-      }
+      assert::condition(!(SOCKET_ERROR == status || 0 == status), exception::make_network_exception);
       recievedData += status;
     } while(recievedData < messageSize);
   }

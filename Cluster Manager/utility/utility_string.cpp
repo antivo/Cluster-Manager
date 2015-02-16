@@ -1,13 +1,19 @@
 #include "utility_string.h"
 
-
+#include <cctype>
+#include <iterator>
 #include <fstream>
+#include <functional> 
 #include <sstream>
 #include <streambuf>
 #include <regex>
 
-
 namespace utility {
+	void trim(std::string& ss) {
+		ss.erase(ss.begin(), std::find_if(ss.begin(), ss.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+		ss.erase(std::find_if(ss.rbegin(), ss.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), ss.end());
+	}
+
   std::string concatenateWithStartingDelimiter(const std::vector<std::string>& lines, const char delimiter) {
     std::stringstream sstream;
     auto size = lines.size();
@@ -67,7 +73,7 @@ namespace utility {
     return std::regex_match(str, acceptable);
   }
 
-	/*std::string addSlashes(const std::string& xs) {
+	std::string duplicateSlashesIn(const std::string& xs) {
 		std::stringstream ss;
 		for (const auto c : xs) {
 			ss << c;
@@ -75,18 +81,30 @@ namespace utility {
 				ss << '\\';
 			}
 		}
-	}*/
+		return ss.str();
+	}
 
-	std::string fileToString(std::string& filepath) {
+	std::vector<std::string> fileToStringVector(const std::string& path) {
+		std::ifstream file(path);
+		std::vector<std::string> lines;
+		std::string line;
+		while (std::getline(file, line)) {
+			lines.push_back(line);
+		}
+		return lines;
+	}
+
+	std::string fileToString(const std::string& filepath) {
 		std::ifstream t(filepath.c_str());
 		std::string ss;
-
 		t.seekg(0, std::ios::end);
-		ss.reserve(static_cast<int>(t.tellg()));
+		const auto size = t.tellg();
 		t.seekg(0, std::ios::beg);
-
-		ss.assign((std::istreambuf_iterator<char>(t)),
-							 std::istreambuf_iterator<char>());
+		if (size) {
+			ss.reserve(static_cast<int>(size));
+			ss.assign((std::istreambuf_iterator<char>(t)),
+								std::istreambuf_iterator<char>());
+		}
 		return ss;
 	}
 }

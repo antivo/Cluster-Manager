@@ -1,14 +1,14 @@
 #include "database_mysql_store_result.h"
 
+#include "assert_common.h"
+
 #pragma comment(lib, R"(_dependencies\mysql\lib\libmysql.lib)")
 
 namespace database{
 
   MySQLStoreResult::MySQLStoreResult(st_mysql* const connection) {
     result = mysql_store_result(connection);
-    if(nullptr == result) {
-      throw std::runtime_error("Could not retrieve result from previous querry in  MySQLStoreResult::MySQLStoreResult");
-    }
+		assert::runtime(nullptr != result, "Could not retrieve result from previous querry in  MySQLStoreResult::MySQLStoreResult");
     numFields = mysql_num_fields(result);
   }
 

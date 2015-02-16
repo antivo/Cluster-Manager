@@ -2,8 +2,9 @@
 #define NETWORK_LISTENER
 
 #include <ws2tcpip.h>
-#include <string>
+
 #include <memory>
+#include <string>
 
 namespace network {
   class Socket;

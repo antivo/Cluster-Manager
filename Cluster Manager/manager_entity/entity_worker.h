@@ -17,7 +17,7 @@ namespace entity {
 		std::shared_ptr<filesystem::Directory> getRootDirectory() const;
 		std::shared_ptr<filesystem::Directory> getWorkingDirectory() const;
 
-		void setWorkingDirectory(std::shared_ptr<filesystem::Directory> workingDirectory);
+		void setWorkingDirectory(const std::shared_ptr<filesystem::Directory>& workingDirectory);
 
 	private:
 		std::string alias;

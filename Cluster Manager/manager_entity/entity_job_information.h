@@ -9,8 +9,8 @@
 namespace entity {
 	class JobInformation {
 	public:
-		JobInformation(const std::vector<std::string> jobInformationVector);
-		JobInformation(std::vector<std::string>&& jobInformationVector);
+		explicit JobInformation(const std::vector<std::string>& jobInformationVector);
+		explicit JobInformation(std::vector<std::string>&& jobInformationVector);
 		~JobInformation();
 
 		std::string getClientID() const;

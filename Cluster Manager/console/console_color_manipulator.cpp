@@ -3,7 +3,7 @@
 #include <memory>
 
 namespace console {
-  ColorManipulator::ColorManipulator(const WORD color) : hstdout{ GetStdHandle(STD_OUTPUT_HANDLE) }, csbi{ std::make_unique<CONSOLE_SCREEN_BUFFER_INFO>() }  {
+  ColorManipulator::ColorManipulator(const WORD color) : hstdout(GetStdHandle(STD_OUTPUT_HANDLE)), csbi(std::make_unique<CONSOLE_SCREEN_BUFFER_INFO>())  {
     GetConsoleScreenBufferInfo( hstdout, csbi.get());
     SetConsoleTextAttribute(hstdout, color);
   }

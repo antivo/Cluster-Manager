@@ -3,8 +3,8 @@
 
 #include <ws2tcpip.h>
 
-#include <memory>
 #include <atomic>
+#include <memory>
 #include <thread>
 
 namespace network {

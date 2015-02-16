@@ -1,6 +1,6 @@
 #include "locked_socket_store.h"
 
-#include <stdexcept>
+#include "assert_common.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -13,17 +13,12 @@ namespace locked {
 
   void SocketStore::addSocket(const SOCKET socket) {
     set(socket);
-    if(!isSet(socket)) {
-      throw std::out_of_range("Socket Store request to insert socket failed.");
-    }
+		assert::condition(isSet(socket), []() { return std::out_of_range("Socket Store request to insert socket failed."); });
   }
 
   void SocketStore::removeSocket(const SOCKET socket) {
-    if(isSet(socket)) {
-      unset(socket);
-    } else {
-      throw std::out_of_range("Socket Store request to delete socket that does not exist.");
-    }
+		assert::condition(isSet(socket), []() { return std::out_of_range("Socket Store request to delete socket that does not exist."); });
+    unset(socket);
   }
 
   fd_set SocketStore::getCopy() {

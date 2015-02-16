@@ -1,7 +1,6 @@
 #include "thread_responde_clients.h"
 
-#include <iterator>
-
+#include "assert_common.h"
 #include "network_listener.h"
 
 namespace thread {
@@ -54,14 +53,11 @@ namespace thread {
   
   fd_set RespondeClients::selectSocketSet(void (network::Listener::* listenerSelectMethod)(fd_set&) const) const {
     auto listenerSolid = listener.lock();
-    if(listenerSolid) {
-      auto clientSet = getClients();
-      auto selector = std::bind(listenerSelectMethod, listenerSolid.get(), std::placeholders::_1);
-      selector(clientSet);
-      return clientSet;
-    } else {
-       throw std::runtime_error("Listener not available inside thread::RespondeClients::selectSocketSet");
-    }
+		assert::condition(nullptr != listenerSolid, []() {return std::runtime_error("Listener not available inside thread::RespondeClients::selectSocketSet"); });
+    auto clientSet = getClients();
+    auto selector = std::bind(listenerSelectMethod, listenerSolid.get(), std::placeholders::_1);
+    selector(clientSet);
+    return clientSet;
   }
 
   void RespondeClients::processClient(const SOCKET client) const {
@@ -70,11 +66,8 @@ namespace thread {
       } catch (...) {
         closeClient(client);
         auto listenerSolid = listener.lock();
-        if(listenerSolid) {
-          listenerSolid->closeClient(client);
-        } else {
-          throw std::runtime_error("Listener not available in RespondeClients::processClient");
-        }
+				assert::condition(nullptr != listenerSolid, []() {return std::runtime_error("Listener not available in RespondeClients::processClient"); });
+        listenerSolid->closeClient(client);
       }
   }
 }

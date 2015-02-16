@@ -2,8 +2,7 @@
 
 #include <ws2tcpip.h>
 
-#include <stdexcept>
-
+#include "assert_common.h"
 #include "network_listener.h"
 
 namespace thread {
@@ -40,13 +39,10 @@ namespace thread {
   void AcceptClients::acceptClients() const {
     while(running) {
       auto listenerSolid = listener.lock();
-      if(listenerSolid) {
-        auto client = listenerSolid->acceptClient();
-        if(running) {
-          addClient(client);
-        }
-      } else {
-        throw std::runtime_error("Listener is not available for thread::AcceptClient::acceptClients");
+			assert::condition(nullptr != listenerSolid, []() { return std::runtime_error("Listener is not available for thread::AcceptClient::acceptClients"); });
+      auto client = listenerSolid->acceptClient();
+      if(running) {
+        addClient(client);
       }
     }
   }

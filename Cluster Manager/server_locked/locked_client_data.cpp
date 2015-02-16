@@ -1,8 +1,7 @@
 #include "locked_client_data.h"
-#include "entity_client_record.h"
 
-#include <stdexcept>
-#include <utility>
+#include "assert_common.h"
+#include "entity_client_record.h"
 
 namespace locked {
   ClientData::ClientData() {}
@@ -13,18 +12,14 @@ namespace locked {
     mutex.lock();
     auto result = data.emplace(clientSocket, std::move(newData));
     mutex.unlock();
-    if(false == result.second) {
-      throw std::out_of_range("Client Data request to insert new data failed.");
-    }
+		assert::condition(result.second, []() { return std::out_of_range("Client Data request to insert new data failed."); });
   }
 
   void ClientData::removeClient(const SOCKET clientSocket) {
     mutex.lock();
     auto result = data.erase(clientSocket);
     mutex.unlock();
-    if (1 != result) {
-      throw std::out_of_range("Client Data request to remove client failed.");
-    }
+		assert::condition(result, []() { return std::out_of_range("Client Data request to remove client failed."); });
   }
 
   entity::ClientRecord ClientData::getClientData(const SOCKET clientSocket) {

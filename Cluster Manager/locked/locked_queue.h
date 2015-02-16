@@ -2,8 +2,8 @@
 #define LOCKED_QUEUE
 
 #include <memory>
-#include <queue>
 #include <mutex>
+#include <queue>
 
 namespace locked {
 	template <typename T>

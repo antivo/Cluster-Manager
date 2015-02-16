@@ -39,7 +39,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;$(IncludePath);C:\Users\StjepanAntivo\Desktop\Cluster Manager\_dependencies\mysql\include;C:\Users\StjepanAntivo\Desktop\Cluster Manager</IncludePath>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -44,7 +44,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\assert;C:\Users\StjepanAntivo\Desktop\Cluster Manager\client_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\configuration;C:\Users\StjepanAntivo\Desktop\Cluster Manager\console;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\exception;C:\Users\StjepanAntivo\Desktop\Cluster Manager\filesystem;C:\Users\StjepanAntivo\Desktop\Cluster Manager\locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_manager;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\memory;C:\Users\StjepanAntivo\Desktop\Cluster Manager\network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\process;C:\Users\StjepanAntivo\Desktop\Cluster Manager\serialization;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_logic;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_server;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;C:\Users\StjepanAntivo\Desktop\Cluster Manager\thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\utility;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\StjepanAntivo\Desktop\Cluster Manager\assert;C:\Users\StjepanAntivo\Desktop\Cluster Manager\client_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\configuration;C:\Users\StjepanAntivo\Desktop\Cluster Manager\console;C:\Users\StjepanAntivo\Desktop\Cluster Manager\database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\exception;C:\Users\StjepanAntivo\Desktop\Cluster Manager\filesystem;C:\Users\StjepanAntivo\Desktop\Cluster Manager\locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_entity;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_manager;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\manager_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\memory;C:\Users\StjepanAntivo\Desktop\Cluster Manager\network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\process;C:\Users\StjepanAntivo\Desktop\Cluster Manager\serialization;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_database;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_locked;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_logic;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_network;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_persistent;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_server;C:\Users\StjepanAntivo\Desktop\Cluster Manager\server_thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\sever_data;C:\Users\StjepanAntivo\Desktop\Cluster Manager\thread;C:\Users\StjepanAntivo\Desktop\Cluster Manager\utility;$(IncludePath);C:\Users\StjepanAntivo\Desktop\Cluster Manager\_dependencies\mysql\include;C:\Users\StjepanAntivo\Desktop\Cluster Manager</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -87,6 +87,9 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\assert\assert.vcxproj">
+      <Project>{c8deb150-4005-4c38-8304-d052960dd833}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\client_network\client_network.vcxproj">
       <Project>{0bd60a26-4629-4b63-a716-6bad9117bc5f}</Project>
     </ProjectReference>
@@ -96,11 +99,20 @@
     <ProjectReference Include="..\console\console.vcxproj">
       <Project>{ae5b7c2d-ccc9-4415-b783-de8bece3083a}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\entity\entity.vcxproj">
+      <Project>{da14e4c8-cbde-461b-b10f-921cf0d8a646}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\exception\exception.vcxproj">
       <Project>{ec7bce23-c669-4449-80f1-c7d04940318d}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\memory\memory.vcxproj">
-      <Project>{3b86a87d-1453-41c7-9d4f-21f36d789e50}</Project>
+    <ProjectReference Include="..\filesystem\filesystem.vcxproj">
+      <Project>{517ec5b0-9b09-46f3-99e3-668b009d1045}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\network\network.vcxproj">
+      <Project>{6606f218-e2c7-4859-9e48-af3bd71e4f6e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\utility\utility.vcxproj">
+      <Project>{25dc4655-0ea6-473a-bbe2-e812999500ea}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

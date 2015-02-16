@@ -1,9 +1,9 @@
 #ifndef SERVER_ENTITY_DETERMINISTIC_FINITE_AUTOMATA
 #define SERVER_ENTITY_DETERMINISTIC_FINITE_AUTOMATA
 
-#include <string>
 #include <functional>
 #include <map>
+#include <string>
 
 namespace entity {
 	class ClientRecord;

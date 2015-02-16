@@ -1,9 +1,9 @@
 #ifndef ENTITY_CLIENT_RECORD
 #define ENTITY_CLIENT_RECORD
 
-#include <string>
 #include <map>
 #include <memory>
+#include <string>
 #include <vector>
 
 namespace entity {
@@ -36,6 +36,7 @@ namespace entity {
 	private:
 		std::string state;
 		std::shared_ptr<entity::Contract> contract;
+		std::shared_ptr<std::vector<std::string>> resultTopology;
 		std::map<std::string, std::string> properties;
 	};
 }

@@ -1,12 +1,12 @@
 #include "filesystem_directory_common.h"
 
-#include <sys/stat.h>
 #include <io.h>
+#include <sys/stat.h>
 #include <windows.h>
 
 #include <sstream>
 
-#include "common_assert.h"
+#include "assert_common.h"
 #include "filesystem_find_file.h"
 #include "filesystem_common.h"
 
@@ -32,15 +32,11 @@ namespace filesystem {
           create(path.substr(0, separatorIndex));
         }
         const auto result = ::CreateDirectoryA(path.c_str(), nullptr);
-        if(false == result) {
-          throw std::runtime_error("Could not create directory");
-        }
+        assert::runtime(result, "Could not create directory");
       } else {
         const auto isDirectoryOrJunction = ((fileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0) ||
                                            ((fileAttributes & FILE_ATTRIBUTE_REPARSE_POINT) != 0);
-        if(!isDirectoryOrJunction) {
-          throw std::runtime_error("File with the same name exists");
-        }
+				assert::runtime(isDirectoryOrJunction, "File with the same name exists");
       }
     }
     
@@ -122,14 +118,14 @@ namespace filesystem {
 			strcat_s(l_szTmp, "*");
 			hFind = FindFirstFileA(l_szTmp, &FindFileData);
 
-			if (NULL == hFind) throw new std::runtime_error("recursive copy - no file/directory found");
+			assert::runtime(nullptr != hFind, "recursive copy - no file/directory found");
 			do {
 				if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 					if (strcmp(FindFileData.cFileName, ".")) {
 						if (strcmp(FindFileData.cFileName, "..")) {
 							sprintf_s(l_szNewDesPath, "%s%s\\", l_szDesPath, FindFileData.cFileName);
 							sprintf_s(l_szNewSrcPath, "%s%s\\", l_szSrcPath, FindFileData.cFileName);
-							CreateDirectoryA(l_szNewDesPath, NULL);
+							CreateDirectoryA(l_szNewDesPath, nullptr);
 							recursiveCopy(l_szNewSrcPath, l_szNewDesPath);
 						}
 					}
@@ -154,7 +150,7 @@ namespace filesystem {
 			char l_szNewSrcPath[512] = { 0 };
 			strcat_s(l_szTmp, "*");
 			hFind = FindFirstFileA(l_szTmp, &FindFileData);
-			if (NULL == hFind) throw new std::runtime_error("recursive copy - no file/directory found");
+			assert::runtime(NULL != hFind, "recursive copy - no file/directory found");
 			do {
 				if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 					if (strcmp(FindFileData.cFileName, ".")) {

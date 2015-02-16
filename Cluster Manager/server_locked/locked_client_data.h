@@ -2,16 +2,16 @@
 #define SERVER_LOCKED_CLIENT_DATA
 
 #include <windows.h>
-#include <mutex>
-#include <memory>
+
 #include <map>
+#include <memory>
+#include <mutex>
 
 namespace entity {
   class ClientRecord;
 }
 
 namespace locked {
-  
 	/// Thread safe container for client data
   class ClientData {
   public:

@@ -7,7 +7,12 @@
 
 #include "entity_worker_queue.h"
 
+namespace entity {
+	class Worker;
+}
+
 namespace configuration {
+	class Manager;
 	class SharedServerManager;
 }
 
@@ -23,18 +28,24 @@ namespace thread {
 namespace manager {
 	class Manager {
 	public:
-		Manager(std::shared_ptr<persistent::ManagerData> persistentData,
-						std::shared_ptr<configuration::SharedServerManager>);
+		Manager(const std::shared_ptr<persistent::ManagerData>& persistentData,
+						const std::shared_ptr<configuration::Manager>& managerConfiguration,
+						const std::shared_ptr<configuration::SharedServerManager>& sharedData);
+		~Manager();
 
-		void executeOrder(const std::string& order);
+		void addWorker(std::unique_ptr<entity::Worker>&& worker);
+
+		bool run();
+		void stop();
 
 	private:
-		std::unique_ptr<thread::Supervise> supervise;
-		std::unique_ptr<thread::Execute> execute;
-	
+		std::shared_ptr<entity::WorkerQueue> workers;
 		std::shared_ptr<persistent::ManagerData> persistentData;
+		std::shared_ptr<configuration::Manager> managerConfiguration;
+		std::shared_ptr<configuration::SharedServerManager> sharedData;
 
-		std::shared_ptr<locked::WorkerQueue> workers;
+		std::unique_ptr<const thread::Execute> execute;
+		std::unique_ptr<thread::Supervise> supervise;
 	};
 }
 

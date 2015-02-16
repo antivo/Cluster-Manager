@@ -24,9 +24,8 @@ namespace server {
 
   class DetailedServer {
   public:
-    DetailedServer(unsigned short listenerPort, 
-			std::shared_ptr<configuration::SharedClientServer> clientServerConf,
-			std::shared_ptr<configuration::SharedServerManager> serverManagerConf);
+    DetailedServer(std::shared_ptr<configuration::SharedClientServer> clientServerConf,
+									 std::shared_ptr<configuration::SharedServerManager> serverManagerConf);
 
     ~DetailedServer();
 

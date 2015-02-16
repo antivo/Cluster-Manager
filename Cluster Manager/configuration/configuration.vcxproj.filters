@@ -15,44 +15,23 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="configuration_network.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="configuration_database.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="configuration_console.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="configuration_filesystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="configuration_constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="configuration_clock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="configuration_shared_client_server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="configuration_shared_server_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="configuration_messages.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="configuration_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="configuration_master_node.h">
+    <ClInclude Include="configuration_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="configuration_default.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="configuration.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="configuration_shared_server_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,6 +39,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="configuration_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="configuration_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="configuration_default.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

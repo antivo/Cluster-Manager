@@ -1,8 +1,9 @@
 #include "network_connection.h"
 
-#include <ws2tcpip.h>
 #include <winsock2.h>
+#include <ws2tcpip.h>
 
+#include "assert_common.h"
 #include "exception_common.h"
 #include "exception_network.h"
 #include "memory_common.h"
@@ -19,15 +20,11 @@ namespace network {
     auto result = memory::make_unique_with_deleter<PADDRINFOA, decltype(deleter)>(deleter, nullptr);
     Device device;
     int status = ::getaddrinfo(hostname, service, &hints, result.get());
-    if (0 != status) {
-      throw exception::make_network_exception();
-    }
+		assert::condition(0 == status, exception::make_network_exception);
     addrinfo* res = *result;
     socket = std::make_unique<Socket>(res->ai_family, res->ai_socktype, res->ai_protocol);
     status = ::connect(socket->get(), res->ai_addr, res->ai_addrlen);
-    if (SOCKET_ERROR == status) {
-      throw exception::make_network_exception();
-    }
+		assert::condition(SOCKET_ERROR != status, exception::make_network_exception);
   }
 
   Connection::~Connection() {

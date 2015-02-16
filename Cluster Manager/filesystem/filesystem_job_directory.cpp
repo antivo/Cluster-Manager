@@ -2,15 +2,14 @@
 
 #include <sstream>
 
+#include "filesystem_common.h"
+#include "filesystem_directory.h"
 #include "filesystem_directory_common.h"
 #include "filesystem_file_common.h"
-#include "filesystem_directory.h"
-
-#include "filesystem_common.h"
 
 namespace filesystem {
 	const std::string JobDirectory::deployedDirectory("Worker_");
-	const std::string resultFile("_out.txt");
+	const std::string JobDirectory::resultFile("_out.txt");
 
   JobDirectory::JobDirectory(const std::string& rootPath, const std::string& clientId, const std::string& jobName) : 
 		jobDirectory(std::make_unique<Directory>(filesystem::addToPath(filesystem::addToPath(rootPath, clientId), jobName)))
@@ -45,12 +44,21 @@ namespace filesystem {
 	}
 	
 	std::string JobDirectory::getResultFilePath(const int uuid) const {
-		std::string filename{ std::to_string(uuid) + resultFile };
+		std::string filename( std::to_string(uuid) + JobDirectory::resultFile );
 		return this->result->appendToPath(filename);
 	}
 
 
 	std::vector<std::string> JobDirectory::getResultTopology() const {
 		return this->result->createTopology();
+	}
+
+	std::vector<std::string> JobDirectory::getRelativeResultTopology() const {
+		auto topology = this->result->createTopology();
+		const auto prefixSize = result->getPath().size() + 1;
+		for (auto& ss : topology) {
+			ss = ss.substr(prefixSize);
+		}
+		return topology;
 	}
 }

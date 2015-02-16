@@ -4,5 +4,3 @@ Cluster Manager
 @Author: stjepan.antivo.ivica@gmail.com
 
 
-
-

@@ -4,6 +4,7 @@
 
 #include <cstdio>
 
+#include "assert_common.h"
 #include "exception_network.h"
 #include "network_connection.h"
 #include "network_common.h"
@@ -14,12 +15,8 @@
 namespace network {
   Listener::Listener(const unsigned short port) : port{port}, socket{(std::make_unique<const Socket>(AF_INET, SOCK_STREAM, IPPROTO_TCP))} {
     sockaddr_in server{AF_INET, htons(port), {INADDR_ANY}};
-    if (0 != ::bind(socket->get(), reinterpret_cast<sockaddr*>(&server), sizeof(server))) {
-      throw exception::make_network_exception();
-    }
-    if (0 != listen(socket->get(), SOMAXCONN)) {
-      throw exception::make_network_exception();
-    }
+    assert::condition(0 == ::bind(socket->get(), reinterpret_cast<sockaddr*>(&server), sizeof(server)), exception::make_network_exception);
+		assert::condition(0 == listen(socket->get(), SOMAXCONN), exception::make_network_exception);
   }
 
   Listener::~Listener() {
@@ -28,17 +25,13 @@ namespace network {
 
   SOCKET Listener::acceptClient() const {
     SOCKET clientSocket = ::accept(socket->get(), nullptr, nullptr);
-    if (INVALID_SOCKET == clientSocket) {
-      throw exception::make_network_exception();
-    } 
+		assert::condition(INVALID_SOCKET != clientSocket, exception::make_network_exception);
     return clientSocket;
   }
 
   void Listener::closeClient(const SOCKET client) const {
     auto result = ::closesocket(client);
-    if (0 != result) {
-      throw exception::make_network_exception();
-    } 
+		assert::condition(0 == result, exception::make_network_exception);
   }
 
    void Listener::pingSelf() const {
@@ -51,9 +44,7 @@ namespace network {
     timeval waitTime{0, 0}; 
     if (0 != clientSet.fd_count) {
       auto result = select(clientSet.fd_count, &clientSet, nullptr, nullptr, &waitTime); // checks readability
-      if (SOCKET_ERROR == result) { 
-        throw exception::make_network_exception();
-      }
+			assert::condition(SOCKET_ERROR != result, exception::make_network_exception);
     }
   }
 
@@ -61,9 +52,7 @@ namespace network {
     timeval waitTime{0, 0}; 
     if (0 != clientSet.fd_count) {
       auto result = select(clientSet.fd_count, nullptr, nullptr, &clientSet, &waitTime); // checks readability
-      if (SOCKET_ERROR == result) { 
-        throw exception::make_network_exception();
-      }
+			assert::condition(SOCKET_ERROR != result,  exception::make_network_exception);
     }
   }
 

@@ -1,12 +1,12 @@
 #include "filesystem_find_file.h"
 
+#include "assert_common.h"
+
 namespace filesystem {
 
   FindFile::FindFile(const std::string& lpFileName) : findFileData(std::make_unique<WIN32_FIND_DATAA>()),
                                             hFind(FindFirstFileA(lpFileName.c_str(), findFileData.get())) {
-    if(INVALID_HANDLE_VALUE == hFind) {
-      throw std::runtime_error("Can not find");
-    }
+    assert::runtime(INVALID_HANDLE_VALUE != hFind, "Can not find file" + lpFileName);
   }
     
   FindFile::~FindFile() {

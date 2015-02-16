@@ -2,11 +2,11 @@
 #define SERVER_LOCKED_SOCKET_STORE
 
 #include <ws2tcpip.h>
-#include <vector>
+
 #include <mutex>
+#include <vector>
 
 namespace locked {
-  
 	/// Thread safe socket container
   class SocketStore {
   public:

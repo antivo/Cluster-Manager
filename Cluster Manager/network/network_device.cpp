@@ -2,6 +2,7 @@
 
 #include <winsock2.h>
 
+#include "assert_common.h"
 #include "exception_network.h"
 
 #pragma comment(lib, "ws2_32.lib")
@@ -15,9 +16,7 @@ namespace network {
 		std::lock_guard<std::mutex> lock{ mutex };
     if(0 == userCount) {
       auto data = std::make_unique<WSAData>();
-      if(0 != ::WSAStartup(MAKEWORD(2, 2), data.get())) {
-        throw exception::make_network_exception();
-      }
+			assert::condition(0 == ::WSAStartup(MAKEWORD(2, 2), data.get()), exception::make_network_exception);
       lpwsadata = std::move(data);
     }
     ++userCount;
