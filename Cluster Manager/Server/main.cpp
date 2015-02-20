@@ -27,8 +27,8 @@ int main() {
 			std::cin >> consoleInput;
 			std::transform(consoleInput.begin(), consoleInput.end(), consoleInput.begin(), ::toupper);
 			if (!consoleInput.compare("START")) {
-				server->run(serverDatabase);
-				std::cout << "Server is running" << std::endl;
+				const auto started = server->run(serverDatabase);
+				std::cout << "Server is started: " << started << std::endl;
 			} else if (!consoleInput.compare("STOP")) {
 				server->stop();
 				std::cout << "Server stopped" << std::endl;

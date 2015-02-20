@@ -25,9 +25,12 @@ namespace configuration {
 	constexpr auto DATABASE_NAME = "clusterDB";
 
 	// filesystem
-	constexpr auto FILESYSTEM_ROOT_DIRECTORY = R"(\\C11\mpi\_cm)";  //R"(C:\A)"; //R"(\\C11\mpi\_cluster)";
+	constexpr auto FILESYSTEM_ROOT_DIRECTORY = R"(C:\A)"; //R"(\\C11\mpi\_cm)";
 	constexpr auto FILESYSTEM_DATA_DIRECTORY = "data";
 	constexpr auto FILESYSTEM_RESULT_DIRECTORY = "recv";
+
+	constexpr auto deployedDirectory = "Worker_";
+	constexpr auto resultFile = "_out.txt";
 
 	// master node
 	//constexpr auto MASTER_ALIAS = R"(C11)";

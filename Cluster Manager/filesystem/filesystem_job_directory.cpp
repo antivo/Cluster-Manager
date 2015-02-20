@@ -2,14 +2,15 @@
 
 #include <sstream>
 
+#include "configuration_default.h"
 #include "filesystem_common.h"
 #include "filesystem_directory.h"
 #include "filesystem_directory_common.h"
 #include "filesystem_file_common.h"
 
 namespace filesystem {
-	const std::string JobDirectory::deployedDirectory("Worker_");
-	const std::string JobDirectory::resultFile("_out.txt");
+	const std::string JobDirectory::deployedDirectory(configuration::deployedDirectory);
+	const std::string JobDirectory::resultFile(configuration::resultFile);
 
   JobDirectory::JobDirectory(const std::string& rootPath, const std::string& clientId, const std::string& jobName) : 
 		jobDirectory(std::make_unique<Directory>(filesystem::addToPath(filesystem::addToPath(rootPath, clientId), jobName)))

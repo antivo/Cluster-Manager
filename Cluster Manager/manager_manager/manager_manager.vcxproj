@@ -67,10 +67,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="manager.h" />
+    <ClInclude Include="manager_manager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="manager.cpp" />
+    <ClCompile Include="manager_manager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

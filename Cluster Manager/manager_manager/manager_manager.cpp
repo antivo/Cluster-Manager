@@ -1,4 +1,4 @@
-#include "manager.h"
+#include "manager_manager.h"
 
 #include "entity_worker.h"
 #include "entity_worker_queue.h"

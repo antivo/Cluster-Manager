@@ -18,7 +18,7 @@ namespace persistent {
 	
 	std::string ServerDatabase::getInfo(const std::string & clientId) const {
 		std::stringstream statement;
-		statement << "SELECT `name`, `neededWorkers` FROM `jobs` WHERE idClient =" << clientId;
+		statement << "SELECT `name`, `neededWorkers` FROM `jobs` WHERE idClient =" << clientId << " ORDER BY `name` ASC";
 		auto result = conn->select(statement.str().c_str());
 		std::stringstream info;
 		info << "<JobName> : <RemainingWorkers>" << std::endl;

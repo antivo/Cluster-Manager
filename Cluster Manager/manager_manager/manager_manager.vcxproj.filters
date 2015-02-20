@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="manager.h">
+    <ClInclude Include="manager_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="manager.cpp">
+    <ClCompile Include="manager_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
