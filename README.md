@@ -5,4 +5,4 @@ Cluster Manager
 
 
 // doc location:
-https://github.com/antivo/Cluster-Manager/blob/master/doc.pdf
+https://github.com/antivo/Cluster-Manager/blob/master/user_manual.pdf

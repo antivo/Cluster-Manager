@@ -34,6 +34,7 @@ namespace manager {
 		~Manager();
 
 		void addWorker(std::unique_ptr<entity::Worker>&& worker);
+		std::size_t getSizeOfWorkers() const;
 
 		bool run();
 		void stop();

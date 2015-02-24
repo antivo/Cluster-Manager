@@ -14,6 +14,10 @@ namespace utility {
 
 	PeriodicSleeper::~PeriodicSleeper() {}
 
+	void PeriodicSleeper::sleep() const {
+		std::this_thread::sleep_for(sleepDuration);
+	}
+
 	void PeriodicSleeper::trySleeping() {
 		--countBeforeSleep;
 		if (0 >= countBeforeSleep) {

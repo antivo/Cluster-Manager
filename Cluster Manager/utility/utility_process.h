@@ -1,8 +1,7 @@
 #ifndef UTILITY_PROCESS
 #define UTILITY_PROCESS
 
-namespace utility { 
-	unsigned long createProcessAndWaitForResult(const char* proc);
+namespace utility {
+	unsigned long createProcess(const char* proc, const char* outFile);
 }
-
 #endif

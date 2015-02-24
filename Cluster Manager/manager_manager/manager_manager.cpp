@@ -31,6 +31,10 @@ namespace manager {
 		workers->push_back(std::move(worker));
 	}
 
+	std::size_t Manager::getSizeOfWorkers() const {
+		return workers->size();
+	}
+
 	bool Manager::run() {
 		using std::placeholders::_1;
 		bool started = false;

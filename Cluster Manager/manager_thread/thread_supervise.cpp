@@ -49,6 +49,8 @@ namespace thread {
 				if (!executedJob->isRunning()) {
 					finishJobCycle(std::move(executedJob));
 				} else {
+					this->periodicSleeper->sleep(); // for filesystem to synchronize...
+					this->periodicSleeper->sleep(); // for filesystem to synchronize...
 					executedJobs->push_back(std::move(executedJob));
 				}
 				--size;

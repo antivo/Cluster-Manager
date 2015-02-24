@@ -61,8 +61,6 @@ namespace thread {
 		void depositExecutedJob(const entity::JobInformation& jobInformation, const filesystem::JobDirectory& jobDirectory) const;
 		std::unique_ptr<entity::PreparedJob> prepare(const entity::JobInformation& jobInformation, const filesystem::JobDirectory& jobDirectory) const;
 		std::unique_ptr<thread::ExecutedJob> makeExecutedJob(const entity::JobInformation& jobInformation, std::unique_ptr<entity::PreparedJob>&& preparedJob) const;
-		std::unique_ptr<thread::ExecutedJob> makeSerialExecutedJob(const entity::JobInformation& jobInformation, std::unique_ptr<entity::PreparedJob>&& preparedJob) const;
-		std::unique_ptr<thread::ExecutedJob> makeParallelExecutedJob(const entity::JobInformation& jobInformation, std::unique_ptr<entity::PreparedJob>&& preparedJob) const;
 
 		Execute(const Execute&) = delete;
 		Execute& operator=(const Execute&) = delete;

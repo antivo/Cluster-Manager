@@ -11,7 +11,8 @@ namespace utility {
 
 		PeriodicSleeper(const std::chrono::seconds& sleepDuration, const int ticksBeforeSleeping);
 		~PeriodicSleeper();
-
+		
+		void sleep() const;
 		void trySleeping();
 
 	private:

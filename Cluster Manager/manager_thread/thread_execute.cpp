@@ -123,9 +123,8 @@ namespace thread {
 			<< preparedJob->getAliases()
 			<< " -noprompt "
 			<< preparedJob->getExePaths()
-			<< " " << jobInformation.getArgs()
-			<< " " << preparedJob->getOutputFile();
+			<< " " << jobInformation.getArgs();
 		const auto toExec = order.str();
-		return std::make_unique<thread::ExecutedJob>(std::move(preparedJob), jobInformation, toExec);
+		return std::make_unique<thread::ExecutedJob>(std::move(preparedJob), jobInformation, toExec, preparedJob->getOutputFile());
 	}
 }

@@ -6,23 +6,22 @@
 #include "entity_prepared_job.h"
 #include "utility_process.h"
 
-#include <iostream>
-
 namespace thread {
-	ExecutedJob::ExecutedJob(std::unique_ptr<entity::PreparedJob>&& preparedJob, const entity::JobInformation& jobInformation, const std::string& order) :
+	ExecutedJob::ExecutedJob(std::unique_ptr<entity::PreparedJob>&& preparedJob, 
+													 const entity::JobInformation& jobInformation,
+													 const std::string& order, 
+													 const std::string& outFile) :
 		preparedJob(std::move(preparedJob)),
 		clientID(jobInformation.getClientID()),
 		jobName(jobInformation.getJobName()),
 		jobID(jobInformation.getJobID()),
 		order(order),
+		outFile(outFile),
 		running(true),
 		task ( 
 			[this]() {
-		std::cout << "POCINJEEEEEE" << std::endl;
 								try {
-									std::cout << this->order << std::endl;
-									utility::createProcessAndWaitForResult(this->order.c_str());
-									std::cout << this->order << std::endl;
+									utility::createProcess(this->order.c_str(), this->outFile.c_str());
 								} catch (...) {
 									//TODO log  
 								}

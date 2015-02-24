@@ -19,6 +19,7 @@ int main() {
 			sharedData->getDatabaseName().c_str(),
 			sharedData->getDatabsePort());	
 		auto persistent = std::make_shared<persistent::ManagerDatabase>(std::move(conn));
+		persistent->resetManagerSpecificData();
 		auto manConf = configuration::Manager::makeDefault();
 		auto shared = configuration::SharedServerManager::makeDefault();
 		manager::Manager manager(persistent, manConf, shared);
@@ -27,14 +28,20 @@ int main() {
 		std::string consoleInput;
 		std::cin >> consoleInput;
 		const auto workerDefLines = utility::fileToStringVector(consoleInput);
+		std::cout << workerDefLines.size() << std::endl;
+		std::cout << "I have read: " << std::endl;
 		for (const auto workerDef : workerDefLines) {
-			const auto workerDefparts = utility::stringExplode(workerDef, '2');
+			std::cout << workerDef << std::endl;
+			auto workerDefparts = utility::stringExplode(workerDef, '|');
 			assert::runtime(2 == workerDefparts.size(), "Definition of worker demands alias and working dir. Irregular line " + workerDef);
-			const auto& alias = workerDefparts[0];
-			const auto& workingDirectory = workerDefparts[1];
+			auto& alias = workerDefparts[0];
+			auto& workingDirectory = workerDefparts[1];
+			utility::trim(alias);
+			utility::trim(workingDirectory);
 			auto worker = std::make_unique<entity::Worker>(alias, workingDirectory);
 			manager.addWorker(std::move(worker));
 		}
+		std::cout << "There are " << manager.getSizeOfWorkers() << " workers" << std::endl;
 		manager.run();
 		std::cout << "is running" << std::endl;
 		// commands for manager not defined, run in infinite loop in this version

@@ -13,7 +13,7 @@ namespace entity {
 namespace thread {
 	class ExecutedJob {
 	public:
-		ExecutedJob(std::unique_ptr<entity::PreparedJob>&& preparedJob, const entity::JobInformation& jobInformation, const std::string& order);
+		ExecutedJob(std::unique_ptr<entity::PreparedJob>&& preparedJob, const entity::JobInformation& jobInformation, const std::string& order, const std::string& outFile);
 		~ExecutedJob();
 
 		std::string getClientID() const;
@@ -30,6 +30,7 @@ namespace thread {
 		std::string jobName;
 		std::string jobID;
 		std::string order;
+		std::string outFile;
 		std::atomic<bool> running;
 		std::thread task;
 
