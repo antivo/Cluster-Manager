@@ -96,7 +96,7 @@ namespace utility {
 	}
 
 	std::string fileToString(const std::string& filepath) {
-		std::ifstream t(filepath.c_str(), std::ifstream::in);
+		std::ifstream t(filepath.c_str(), std::ifstream::in | std::ifstream::binary);
 		std::string ss;
 		t.seekg(0, std::ios::end);
 		const auto size = t.tellg();

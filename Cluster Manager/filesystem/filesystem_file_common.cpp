@@ -8,7 +8,7 @@ namespace filesystem {
   namespace file {
     void create(const std::string&path, const std::string& content) {
       if (content.size()) { // assert ??
-				std::ofstream outfile(path, std::ofstream::out);
+				std::ofstream outfile(path, std::ofstream::out | std::ostream::binary);
 				outfile.write(content.c_str(), content.size());
 				outfile.close();
 			}
