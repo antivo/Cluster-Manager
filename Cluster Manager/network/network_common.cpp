@@ -35,13 +35,12 @@ namespace network {
     network::send(socket, message.c_str(), messageSize);
   }
   
-  std::string recieveMessage(const SOCKET socket) { // OBRISI MESSAGECHUNK, ostalo radi kompatibilnosti
+  std::string recieveMessage(const SOCKET socket) {
     message_size messageSize;
     recieve(socket, reinterpret_cast<char*>(&messageSize), sizeof(messageSize));
     messageSize = ntohl(messageSize);
-    memory::DynamicArray<char> buffer(messageSize + 1);
+    memory::DynamicArray<char> buffer(messageSize);
     recieve(socket, buffer.get(), messageSize);
-    (buffer.get())[messageSize] = '\0';
-    return std::string(buffer.get());
+    return std::string(buffer.get(), messageSize);
   }
 }
