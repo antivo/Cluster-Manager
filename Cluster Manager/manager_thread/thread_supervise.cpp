@@ -1,5 +1,8 @@
 #include "thread_supervise.h"
 
+#include <thread>
+#include <chrono>
+
 #include "configuration_shared_server_manager.h"
 #include "entity_prepared_job.h"
 #include "filesystem_job_directory.h"
@@ -47,10 +50,10 @@ namespace thread {
 			while(size != 0) {
 				auto executedJob = executedJobs->pop_front();
 				if (!executedJob->isRunning()) {
+					using namespace std::literals;
+					std::this_thread::sleep_for(2min); // filesystem to synchronize... sometimes files are multiple or huge. FIND BETTER SOLUTION
 					finishJobCycle(std::move(executedJob));
 				} else {
-					this->periodicSleeper->sleep(); // for filesystem to synchronize...
-					this->periodicSleeper->sleep(); // for filesystem to synchronize...
 					executedJobs->push_back(std::move(executedJob));
 				}
 				--size;

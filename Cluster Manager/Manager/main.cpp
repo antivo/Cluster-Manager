@@ -39,6 +39,8 @@ int main() {
 			utility::trim(alias);
 			utility::trim(workingDirectory);
 			auto worker = std::make_unique<entity::Worker>(alias, workingDirectory);
+			std::cout << "alias: " << worker->getAlias() << std::endl;
+			std::cout << "working directory: " << workingDirectory << std::endl;
 			manager.addWorker(std::move(worker));
 		}
 		std::cout << "There are " << manager.getSizeOfWorkers() << " workers" << std::endl;

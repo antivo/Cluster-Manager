@@ -29,18 +29,18 @@ namespace network {
   
   void sendMessage(const SOCKET socket, const std::string& message) {
 		message_size messageSize{ message.length() };
-    messageSize = htonl(messageSize); // The htonl function converts a u_long from host to TCP/IP network byte order (which is big-endian).
+		messageSize = htonl(messageSize); // The htonl function converts a u_long from host to TCP/IP network byte order (which is big-endian).
     network::send(socket, reinterpret_cast<const char*>(&messageSize), sizeof(messageSize));
     messageSize = ntohl(messageSize); // The ntohl function converts a u_long from TCP/IP network order to host byte order (which is little-endian on Intel processors)
     network::send(socket, message.c_str(), messageSize);
   }
   
-  std::string recieveMessage(const SOCKET socket) {
+  std::string recieveMessage(const SOCKET socket) { // OBRISI MESSAGECHUNK, ostalo radi kompatibilnosti
     message_size messageSize;
     recieve(socket, reinterpret_cast<char*>(&messageSize), sizeof(messageSize));
     messageSize = ntohl(messageSize);
     memory::DynamicArray<char> buffer(messageSize);
     recieve(socket, buffer.get(), messageSize);
-    return std::string(buffer.get(), messageSize);
+		return std::string(buffer.get(), messageSize);;
   }
 }
