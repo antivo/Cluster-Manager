@@ -1,7 +1,9 @@
 #include "thread_executed_job.h"
 
 #include <memory>
+#include <chrono>
 
+#include "configuration_default.h"
 #include "entity_job_information.h"
 #include "entity_prepared_job.h"
 #include "utility_process.h"
@@ -47,6 +49,12 @@ namespace thread {
 
 	bool ExecutedJob::isRunning() const {
 		return running;
+	}
+
+	bool ExecutedJob::isReady() const {
+		static auto startTime = std::chrono::system_clock::now();
+		auto passedTime = std::chrono::system_clock::now() - startTime;
+		return passedTime > configuration::EXECUTED_WAITING_DURATION;
 	}
 
 	std::unique_ptr<entity::PreparedJob> ExecutedJob::release() {

@@ -14,6 +14,15 @@ namespace filesystem {
 		return ss.str();
 	}
 
+	std::string getDirectoryPathOf(const std::string& path) {
+		const auto found = path.find_last_of(R"(/\)");
+		std::string directory, filename;
+		if (std::string::npos != found) {
+			return path.substr(0, found);
+		}
+		return "";
+	}
+
 	bool isDirectory(const std::string& name) {
     std::regex windowsDirectory(R"DELIMITER(^(?!(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.[^.]*)?$)[^<>:"/\\|?*\x00-\x1F]*[^<>:"/\\|?*\x00-\x1F\ .]$)DELIMITER");
     return std::regex_match(name, windowsDirectory);

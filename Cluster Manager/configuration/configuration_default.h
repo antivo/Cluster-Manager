@@ -13,6 +13,7 @@ namespace configuration {
 	// clock
 	constexpr auto					   TICKS_BEFORE_SLEEP = 5;
 	const std::chrono::seconds SLEEP_DURATION     (5);
+	const std::chrono::minutes EXECUTED_WAITING_DURATION{ 2 };
 
 	// console
 	constexpr auto CONSOLE_COLOR = 2;

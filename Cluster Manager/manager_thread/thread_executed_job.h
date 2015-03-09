@@ -21,6 +21,7 @@ namespace thread {
 		std::string getJobID() const;
 
 		bool isRunning() const;
+		bool isReady() const;
 
 		std::unique_ptr<entity::PreparedJob> release();
 

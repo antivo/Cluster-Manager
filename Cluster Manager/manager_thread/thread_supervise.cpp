@@ -49,9 +49,7 @@ namespace thread {
 			auto size = executedJobs->size();
 			while(size != 0) {
 				auto executedJob = executedJobs->pop_front();
-				if (!executedJob->isRunning()) {
-					using namespace std::literals;
-					std::this_thread::sleep_for(2min); // filesystem to synchronize... sometimes files are multiple or huge. FIND BETTER SOLUTION
+				if (!executedJob->isRunning() && executedJob->isReady()) {
 					finishJobCycle(std::move(executedJob));
 				} else {
 					executedJobs->push_back(std::move(executedJob));

@@ -10,6 +10,7 @@
 #include "entity_contract.h"
 #include "entity_raw_contract.h"
 #include "exception_network.h"
+#include "filesystem_common.h"
 #include "filesystem_directory.h"
 #include "network_connection.h"
 #include "console_color_manipulator.h"
@@ -23,6 +24,7 @@ constexpr auto ACTIONS_DISPLAY = "You have access to Cluster Manager Service, th
 constexpr auto PRESS_ANY_KEY = "Press any key...";
 
 constexpr auto CONTRACT_FILE_INPUT = "Provide a path to your Contract - File";
+constexpr auto I_WILL_SEND_FILE = "I am ready to tranfer the following file: ";
 constexpr auto LOCAL_FOLDER_INPUT = "Provide a path to folder where you will store data";
 constexpr auto JOB_NAME_INPUT = "Provide a name of desired job";
 
@@ -61,14 +63,20 @@ int main() {
 			if (!consoleInput.compare(sharedData->getClientChoiceSchedule())) { // SCHEDULE JOB
 				std::cout << CONTRACT_FILE_INPUT << std::endl;
 				std::cin >> consoleInput;
+				const auto prefix = filesystem::getDirectoryPathOf(consoleInput);
 				auto fileStringVector = utility::fileToStringVector(consoleInput);
+				if (!fileStringVector[3].length()) {
+					fileStringVector[3] = " "; // HOT FIX.. no arguemnts CF will not succ in sending
+				}
 				auto rawContract = std::make_unique<entity::RawContract>(std::move(fileStringVector));
 				const auto contract = rawContract->getContract();
 				const auto pathList = rawContract->getLocalPathList();
 				connection->send(utility::serialise(contract->getContractVector()));
 				for (const auto& ss : *pathList) {
 					std::cout << connection->receive() << std::endl;
-					const auto content = utility::fileToString(ss);
+					const auto path = filesystem::addToPath(prefix, ss);
+					std::cout << I_WILL_SEND_FILE << path << std::endl;
+					const auto content = utility::fileToString(path);
 					assert::runtime(content.size() > 0, "Empty files can not be sent to server");
 					connection->send(content);
 				}
